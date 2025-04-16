@@ -2,164 +2,325 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Foxie Films - Modern Glass UI</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #ff0000;
-      color: #ff0000;
-      transition: background 0.5s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100vw;
-      height: 100vh;
-      overflow-y: auto;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    header {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 1rem 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background 0.5s ease, backdrop-filter 0.5s ease;
-    }
-    .logo {
-      height: 50px;
-      width: auto;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      width: 100%;
-    }
-    nav li {
-      font-weight: bold;
-      cursor: pointer;
-      padding: 0.5rem 1.2rem;
-      border-radius: 5px;
-      transition: all 0.3s ease-in-out;
-      font-size: 1rem;
-      text-transform: uppercase;
-      color: #fff;
-    }
-    nav li:hover,
-    nav li.active {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      color: #00aaff;
-    }
-    .commercial-view {
-      background-color: #ff0000 !important;
-      color: #004080 !important;
-    }
-    .dark-mode {
-      background-color: #ff0000 !important;
-      color: #ff0000 !important;
-    }
-    main {
-      display: flex;
-      flex-direction: column;
-      width: 100vw;
-      height: auto;
-      overflow-y: auto;
-    }
-    .media-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100vw;
-      height: auto;
-    }
-    .media-container img, 
-    .media-container video, 
-    .media-container .gif {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      border-radius: 0;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foxie Films - Cinematic Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="monn.css">
 </head>
-<body id="page" class="dark-mode">
-
-  <header id="navbar">
-    <img src="FOXIElogobw.PNG" alt="Foxie Films Logo" class="logo">
-    <nav>
-      <ul>
-        <li onclick="switchToDark()" id="home-tab" class="active">HOME</li>
-        <li onclick="switchToCommercial()" id="commercial-tab">COMMERCIAL</li>
-        <li>NARRATIVE</li>
-        <li>CONTACT</li>
-      </ul>
-    </nav>
+<body>
+  <header id="header">
+    <div class="header-container container">
+      <a href="#" class="logo">
+        <img src="FOXIElogobw.PNG" alt="Foxie Films Logo" class="logo-image">
+        Foxie Films
+      </a>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav id="mainNav">
+        <ul>
+          <li class="active"><a href="#hero">Home</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <div class="media-container">
-      <img src="Gif1.GIF" alt="GIF Animation" class="gif" />
-      <!-- Removed controls attribute from videos -->
-      <video src="Movie1.mov"></video>
-      <video src="Movie2.mov"></video>
-      <img src="Pic1.jpeg" alt="Image 1" />
-      <img src="Pic2.jpeg" alt="Image 2" />
-      <img src="Pic3.jpeg" alt="Image 3" />
-      <img src="Pic4.jpeg" alt="Image 4" />
-      <img src="Pic5.jpeg" alt="Image 5" />
-      <img src="Pic6.jpeg" alt="Image 6" />
-      <img src="Pic7.jpeg" alt="Image 7" />
-      <img src="Pic8.jpeg" alt="Image 8" />
-      <img src="Pic9.jpeg" alt="Image 9" />
-    </div>
+    <!-- Cinematic Hero Section -->
+    <section id="hero" class="hero">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="Movie1.mov" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">FOXIE FILMS</h1>
+        <p class="hero-subtitle">Crafting powerful visual narratives that resonate with audiences and transcend boundaries</p>
+      </div>
+      <div class="hero-info">
+        <span>Directed by Foxy</span>
+      </div>
+      <div class="hero-counter">
+        <span>01</span>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+      <div class="container">
+        <h2 class="portfolio-title">Our Work</h2>
+        <div class="portfolio-grid">
+          <!-- Portfolio items will be added dynamically with JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container about-container">
+        <div class="about-content" id="aboutContent">
+          <h2 class="about-title">The Vision</h2>
+          <p class="about-text">
+            Foxie Films is a visionary studio directed by Foxy, dedicated to crafting immersive cinematic experiences that challenge conventions and evoke profound emotional responses.
+          </p>
+          <p class="about-text">
+            Our approach bridges the gap between commercial and narrative filmmaking, bringing artistic sensibilities to branded content while ensuring our stories are accessible and impactful. With each project, we strive to push boundaries and create visual poetry that lingers in the mind long after viewing.
+          </p>
+          <p class="about-text">
+            From conceptualization to final delivery, we apply meticulous attention to detail, ensuring that every frame serves the narrative and contributes to the overarching visual language of the piece.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2 class="contact-title">Connect</h2>
+        <div class="contact-info">
+          <div class="contact-item">
+            <h3 class="contact-item-title">Collaborations</h3>
+            <p class="contact-text">
+              We're always open to exciting new projects and collaborations that challenge us creatively and allow us to expand our artistic horizons.
+            </p>
+            <a href="mailto:collaborate@foxiefilms.com" class="contact-link">collaborate@foxiefilms.com</a>
+          </div>
+          <div class="contact-item">
+            <h3 class="contact-item-title">Inquiries</h3>
+            <p class="contact-text">
+              For project inquiries, press requests, or general information about our work and services, please reach out.
+            </p>
+            <a href="mailto:info@foxiefilms.com" class="contact-link">info@foxiefilms.com</a>
+          </div>
+          <div class="contact-item">
+            <h3 class="contact-item-title">Location</h3>
+            <p class="contact-text">
+              Based in Los Angeles, California<br>
+              Working globally
+            </p>
+            <a href="#" class="contact-link">View Map</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">FOXIE FILMS</div>
+      <div class="footer-social">
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-vimeo-v"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="footer-nav">
+        <a href="#hero">Home</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Foxie Films. All rights reserved. Directed by Foxy.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for fullscreen media viewing -->
+  <div class="modal" id="mediaModal">
+    <button class="modal-close" id="modalClose">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-content" id="modalContent">
+      <!-- Content will be added dynamically with JavaScript -->
+    </div>
+  </div>
+
   <script>
-    function switchToCommercial() {
-      document.getElementById("page").classList.add("commercial-view");
-      document.getElementById("page").classList.remove("dark-mode");
-    }
-    function switchToDark() {
-      document.getElementById("page").classList.remove("commercial-view");
-      document.getElementById("page").classList.add("dark-mode");
-    }
+    // Media data
+    const portfolioData = [
+      { 
+        type: 'video', 
+        src: 'Movie1.mov',
+        category: 'Commercial',
+        title: 'Northern Echoes', 
+        description: 'A cinematic exploration of ancient traditions and modern resilience'
+      },
+      { 
+        type: 'video', 
+        src: 'Movie2.mov',
+        category: 'Narrative',
+        title: 'Temporal', 
+        description: 'A fragmented journey through memory and perception'
+      }
+    ];
 
-    // Auto-play video on hover
-    document.querySelectorAll('video').forEach(video => {
-      // Remove the default controls (in case they were set)
-      video.removeAttribute('controls');
+    // Create portfolio items
+    function createPortfolio() {
+      const portfolioGrid = document.querySelector('.portfolio-grid');
       
-      video.addEventListener('mouseenter', () => {
-        video.play();
+      portfolioData.forEach((item, index) => {
+        // Create portfolio item
+        const portfolioItem = document.createElement('div');
+        portfolioItem.className = 'portfolio-item';
+        portfolioItem.style.transitionDelay = `${index * 0.1}s`;
+        
+        // Create media (video)
+        const video = document.createElement('video');
+        video.className = 'portfolio-video';
+        video.src = item.src;
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        
+        // Add play icon indicator for videos
+        const playIcon = document.createElement('div');
+        playIcon.className = 'play-icon';
+        playIcon.innerHTML = '<i class="fas fa-play"></i>';
+        playIcon.style.position = 'absolute';
+        playIcon.style.top = '50%';
+        playIcon.style.left = '50%';
+        playIcon.style.transform = 'translate(-50%, -50%)';
+        playIcon.style.color = 'white';
+        playIcon.style.fontSize = '2rem';
+        playIcon.style.opacity = '0.8';
+        playIcon.style.zIndex = '1';
+        
+        // Add hover event to play video preview
+        portfolioItem.addEventListener('mouseenter', () => {
+          video.play();
+        });
+        
+        portfolioItem.addEventListener('mouseleave', () => {
+          video.pause();
+        });
+        
+        portfolioItem.appendChild(video);
+        portfolioItem.appendChild(playIcon);
+        
+        // Add info overlay
+        const infoOverlay = document.createElement('div');
+        infoOverlay.className = 'portfolio-info';
+        
+        const category = document.createElement('div');
+        category.className = 'portfolio-category';
+        category.textContent = item.category;
+        
+        const title = document.createElement('h3');
+        title.className = 'portfolio-name';
+        title.textContent = item.title;
+        
+        const desc = document.createElement('p');
+        desc.className = 'portfolio-desc';
+        desc.textContent = item.description;
+        
+        infoOverlay.appendChild(category);
+        infoOverlay.appendChild(title);
+        infoOverlay.appendChild(desc);
+        portfolioItem.appendChild(infoOverlay);
+        
+        // Add click event to open modal
+        portfolioItem.addEventListener('click', () => {
+          openModal(item);
+        });
+        
+        portfolioGrid.appendChild(portfolioItem);
       });
-      video.addEventListener('mouseleave', () => {
-        video.pause();
-      });
-    });
-  </script>
+    }
 
+    // Function to open modal
+    function openModal(item) {
+      const modal = document.getElementById('mediaModal');
+      const modalContent = document.getElementById('modalContent');
+      
+      // Clear previous content
+      modalContent.innerHTML = '';
+      
+      // Create media element based on type
+      if (item.type === 'video') {
+        const video = document.createElement('video');
+        video.className = 'modal-media';
+        video.src = item.src;
+        video.controls = true;
+        video.autoplay = true;
+        
+        modalContent.appendChild(video);
+      }
+      
+      // Add info
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'modal-info';
+      
+      const title = document.createElement('h2');
+      title.className = 'modal-title';
+      title.textContent = item.title;
+      
+      const desc = document.createElement('p');
+      desc.className = 'modal-description';
+      desc.textContent = item.description;
+      
+      infoDiv.appendChild(title);
+      infoDiv.appendChild(desc);
+      modalContent.appendChild(infoDiv);
+      
+      // Show modal
+      modal.classList.add('active');
+    }
+    
+    // Close modal
+    document.getElementById('modalClose').addEventListener('click', () => {
+      const modal = document.getElementById('mediaModal');
+      modal.classList.remove('active');
+      
+      // Pause any playing videos
+      const videos = modal.querySelectorAll('video');
+      videos.forEach(video => video.pause());
+    });
+    
+    // Initialize portfolio
+    createPortfolio();
+    
+    // Scroll animations
+    function checkScroll() {
+      const elements = document.querySelectorAll('.portfolio-item, .about-content, .contact-title, .contact-item');
+      
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = (rect.top <= window.innerHeight * 0.8);
+        
+        if (isVisible) {
+          el.classList.add('animated');
+        }
+      });
+      
+      // Check for header background change
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+    
+    // Mobile menu toggle
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('mainNav').classList.toggle('active');
+    });
+    
+    // Event listeners
+    window.addEventListener('scroll', checkScroll);
+    window.addEventListener('load', checkScroll);
+    
+    // Initialize scroll check
+    checkScroll();
+  </script>
 </body>
 </html>
