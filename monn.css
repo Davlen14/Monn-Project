@@ -153,7 +153,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: 1;
+    image-rendering: high-quality;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    backface-visibility: visible;
+    transform: none;
+    -webkit-transform: none;
+    filter: none;
   }
   
   .hero-overlay {
