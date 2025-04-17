@@ -9,6 +9,60 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="monn.css">
+  <style>
+    /* ADDED/MODIFIED: Styles for the hero section container */
+    #hero {
+      position: relative; /* Context for absolute children */
+      height: 100vh; /* Try to make hero section full viewport height */
+      width: 100%;
+      overflow: hidden; /* Hide anything spilling out, e.g., from object-fit */
+    }
+
+    /* Styles for hero video */
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* object-fit: cover should scale video to cover container, cropping if needed */
+      /* This prevents browser-added black bars. If bars remain, they might be in the video file. */
+      object-fit: cover;
+      z-index: 1; /* Behind text overlays */
+      /* Rendering hints kept from previous versions */
+      image-rendering: high-quality;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      backface-visibility: visible;
+      transform: none;
+      -webkit-transform: none;
+      filter: none;
+    }
+
+    /* ADDED: Style for the bottom-left info text */
+    .hero-info {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      z-index: 10; /* Ensure it's above the video */
+    }
+
+    /* Style for the bottom-right counter */
+    .hero-counter {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+      z-index: 10; /* Ensures counter is above video */
+    }
+  </style>
 </head>
 <body>
   <header id="header">
@@ -32,35 +86,22 @@
   </header>
 
   <main>
-    <!-- Narrative Section -->
-    <section id="narrative" class="about-section">
-      <div class="container about-container">
-        <div class="about-content" id="aboutContent">
-          <h2 class="about-title">Narrative</h2>
-          <p class="about-text">
-            Foxie Films is a visionary studio directed by Foxie, dedicated to crafting immersive cinematic experiences that challenge conventions and evoke profound emotional responses.
-          </p>
-          <p class="about-text">
-            Our approach bridges the gap between commercial and narrative filmmaking, bringing artistic sensibilities to branded content while ensuring our stories are accessible and impactful. With each project, we strive to push boundaries and create visual poetry that lingers in the mind long after viewing.
-          </p>
-          <p class="about-text">
-            From conceptualization to final delivery, we apply meticulous attention to detail, ensuring that every frame serves the narrative and contributes to the overarching visual language of the piece.
-          </p>
-        </div>
-      </div>
-    </section>
+    <section id="hero" class="hero">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="/Users/davlenswain/Desktop/Monn Project/NARRATIVE  4k.mov" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
 
-    <!-- Portfolio items for Narrative -->
-    <section class="portfolio-section">
-      <div class="container">
-        <div class="portfolio-grid">
-          <!-- Portfolio items will be added dynamically with JavaScript -->
-        </div>
+      <div class="hero-info">
+        <span>Directed by Foxie</span>
+      </div>
+
+      <div class="hero-counter">
+        <span>03</span>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-logo">FOXIE FILMS</div>
@@ -80,161 +121,18 @@
         <a href="#">Terms</a>
       </div>
       <div class="copyright">
-        &copy; 2025 Foxie Films. All rights reserved. Directed by Foxy.
+        © 2025 Foxie Films. All rights reserved. Directed by Foxy.
       </div>
     </div>
   </footer>
 
-  <!-- Modal for fullscreen media viewing -->
-  <div class="modal" id="mediaModal">
-    <button class="modal-close" id="modalClose">
-      <i class="fas fa-times"></i>
-    </button>
-    <div class="modal-content" id="modalContent">
-      <!-- Content will be added dynamically with JavaScript -->
-    </div>
-  </div>
-
   <script>
-    // Media data
-    const portfolioData = [
-      { 
-        type: 'video', 
-        src: 'Movie2.mov',
-        category: 'Narrative',
-        title: 'Temporal', 
-        description: 'A fragmented journey through memory and perception'
-      }
-    ];
-
-    // Create portfolio items
-    function createPortfolio() {
-      const portfolioGrid = document.querySelector('.portfolio-grid');
-      
-      portfolioData.forEach((item, index) => {
-        // Create portfolio item
-        const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'portfolio-item';
-        portfolioItem.style.transitionDelay = `${index * 0.1}s`;
-        
-        // Create media (video)
-        const video = document.createElement('video');
-        video.className = 'portfolio-video';
-        video.src = item.src;
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        
-        // Add play icon indicator for videos
-        const playIcon = document.createElement('div');
-        playIcon.className = 'play-icon';
-        playIcon.innerHTML = '<i class="fas fa-play"></i>';
-        playIcon.style.position = 'absolute';
-        playIcon.style.top = '50%';
-        playIcon.style.left = '50%';
-        playIcon.style.transform = 'translate(-50%, -50%)';
-        playIcon.style.color = 'white';
-        playIcon.style.fontSize = '2rem';
-        playIcon.style.opacity = '0.8';
-        playIcon.style.zIndex = '1';
-        
-        // Add hover event to play video preview
-        portfolioItem.addEventListener('mouseenter', () => {
-          video.play();
-        });
-        
-        portfolioItem.addEventListener('mouseleave', () => {
-          video.pause();
-        });
-        
-        portfolioItem.appendChild(video);
-        portfolioItem.appendChild(playIcon);
-        
-        // Add info overlay
-        const infoOverlay = document.createElement('div');
-        infoOverlay.className = 'portfolio-info';
-        
-        const category = document.createElement('div');
-        category.className = 'portfolio-category';
-        category.textContent = item.category;
-        
-        const title = document.createElement('h3');
-        title.className = 'portfolio-name';
-        title.textContent = item.title;
-        
-        const desc = document.createElement('p');
-        desc.className = 'portfolio-desc';
-        desc.textContent = item.description;
-        
-        infoOverlay.appendChild(category);
-        infoOverlay.appendChild(title);
-        infoOverlay.appendChild(desc);
-        portfolioItem.appendChild(infoOverlay);
-        
-        // Add click event to open modal
-        portfolioItem.addEventListener('click', () => {
-          openModal(item);
-        });
-        
-        portfolioGrid.appendChild(portfolioItem);
-      });
-    }
-
-    // Function to open modal
-    function openModal(item) {
-      const modal = document.getElementById('mediaModal');
-      const modalContent = document.getElementById('modalContent');
-      
-      // Clear previous content
-      modalContent.innerHTML = '';
-      
-      // Create media element based on type
-      if (item.type === 'video') {
-        const video = document.createElement('video');
-        video.className = 'modal-media';
-        video.src = item.src;
-        video.controls = true;
-        video.autoplay = true;
-        
-        modalContent.appendChild(video);
-      }
-      
-      // Add info
-      const infoDiv = document.createElement('div');
-      infoDiv.className = 'modal-info';
-      
-      const title = document.createElement('h2');
-      title.className = 'modal-title';
-      title.textContent = item.title;
-      
-      const desc = document.createElement('p');
-      desc.className = 'modal-description';
-      desc.textContent = item.description;
-      
-      infoDiv.appendChild(title);
-      infoDiv.appendChild(desc);
-      modalContent.appendChild(infoDiv);
-      
-      // Show modal
-      modal.classList.add('active');
-    }
-    
-    // Close modal
-    document.getElementById('modalClose').addEventListener('click', () => {
-      const modal = document.getElementById('mediaModal');
-      modal.classList.remove('active');
-      
-      // Pause any playing videos
-      const videos = modal.querySelectorAll('video');
-      videos.forEach(video => video.pause());
-    });
-    
-    // Mobile menu toggle
+    // Mobile menu toggle (Kept)
     document.getElementById('menuToggle').addEventListener('click', () => {
       document.getElementById('mainNav').classList.toggle('active');
     });
-    
-    // Check for header background change
+
+    // Check for header background change (Kept)
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
       if (window.scrollY > 100) {
@@ -242,16 +140,6 @@
       } else {
         header.classList.remove('scrolled');
       }
-    });
-    
-    // Initialize portfolio
-    createPortfolio();
-    
-    // Add class to make elements appear
-    window.addEventListener('load', () => {
-      document.querySelectorAll('.portfolio-item, .about-content').forEach(item => {
-        item.classList.add('animated');
-      });
     });
   </script>
 </body>
