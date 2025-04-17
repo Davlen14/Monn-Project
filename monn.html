@@ -4,28 +4,146 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Foxie Films - Cinematic Portfolio</title>
+  
+  <meta name="description" content="Foxie Films crafts powerful visual narratives that resonate and transcend boundaries. Explore our cinematic portfolio of commercial and narrative work.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="monn.css">
+  
+  <link rel="stylesheet" href="monn.css"> 
+  
   <style>
-    /* Additional styles to position elements and improve video quality */
+    /* Base body styles (if not in monn.css) */
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #000; /* Example background if needed */
+        color: #fff; /* Example default text color */
+    }
+    .container { /* Basic container if needed */
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* --- Header Styles (Ensure these are sufficient or rely on monn.css) --- */
+    #header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 15px 0;
+        background-color: rgba(0, 0, 0, 0.3); /* Initial transparent background */
+        transition: background-color 0.3s ease;
+    }
+    #header.scrolled {
+        background-color: rgba(0, 0, 0, 0.8); /* Darker background on scroll */
+    }
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        font-size: 1.8rem; /* Slightly larger */
+    }
+    .logo-image {
+        height: 45px; /* Adjust size */
+        margin-right: 12px;
+        filter: brightness(0) invert(1); /* Make logo white */
+    }
+    #mainNav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    #mainNav li {
+        margin-left: 25px; /* Slightly more space */
+    }
+    #mainNav a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        padding: 8px 12px;
+        transition: color 0.3s ease;
+        font-size: 1rem; /* Ensure readable size */
+    }
+    #mainNav a:hover,
+    #mainNav li.active a {
+        color: #ffffff; /* Brighter white for hover/active */
+    }
+    .menu-toggle {
+        display: none; /* Hidden on desktop */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem; /* Larger toggle icon */
+        cursor: pointer;
+    }
+
+    /* --- Hero Section Styles --- */
+    #hero {
+      position: relative; /* Needed for absolute positioning of children */
+      height: 100vh; /* Full viewport height */
+      width: 100%;
+      overflow: hidden; /* Prevent content overflow */
+      display: flex; /* Use flexbox for centering content */
+      justify-content: center; /* Center content horizontally */
+      align-items: center; /* Center content vertically */
+      text-align: center;
+    }
+    
     .hero-video {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 50%; /* Center video */
+      left: 50%; /* Center video */
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      image-rendering: high-quality;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-      backface-visibility: visible;
-      transform: none;
-      -webkit-transform: none;
-      filter: none;
+      min-width: 100%; /* Ensure coverage */
+      min-height: 100%; /* Ensure coverage */
+      object-fit: cover; /* Cover the area, potentially cropping */
+      transform: translate(-50%, -50%); /* Fine-tune centering */
+      z-index: 1; /* Behind content */
+      /* Removed image-rendering properties - often not needed/effective for video */
+      filter: brightness(0.7); /* Optional: Slightly darken video */
+    }
+
+    .hero-content {
+        position: relative; /* Ensure content is above video */
+        z-index: 2; /* Above video */
+        color: white;
+        padding: 20px;
+        max-width: 800px; /* Limit width of text */
+        background-color: rgba(0, 0, 0, 0.3); /* Optional subtle background for readability */
+        border-radius: 10px; /* Optional rounding */
+    }
+
+    .hero-title {
+        font-family: 'Cinzel', serif;
+        font-size: 4rem; /* Adjust size */
+        font-weight: 800; /* Bolder */
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Add text shadow */
+    }
+
+    .hero-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.2rem; /* Adjust size */
+        font-weight: 400;
+        line-height: 1.6;
+        max-width: 600px; /* Limit subtitle width */
+        margin: 0 auto; /* Center subtitle */
+        text-shadow: 1px 1px 6px rgba(0,0,0,0.7); /* Add text shadow */
     }
     
     .hero-info {
@@ -33,9 +151,9 @@
       bottom: 30px;
       left: 30px;
       font-family: 'Cinzel', serif;
-      font-size: 14px;
+      font-size: 0.9rem; /* Adjusted size */
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.7); /* Slightly dimmer */
       z-index: 10;
     }
     
@@ -44,11 +162,97 @@
       bottom: 30px;
       right: 30px;
       font-family: 'Cinzel', serif;
-      font-size: 18px;
+      font-size: 1.1rem; /* Adjusted size */
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.7); /* Slightly dimmer */
       z-index: 10;
     }
+
+    /* --- Footer Styles (Ensure these are sufficient or rely on monn.css) --- */
+    footer {
+        background-color: #0a0a0a; /* Very dark grey */
+        color: #a0a0a0; /* Light grey text */
+        padding: 50px 0;
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+    }
+    .footer-logo {
+        font-family: 'Cinzel', serif;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: white;
+    }
+    .footer-social {
+        margin-bottom: 25px;
+    }
+    .social-icon {
+        color: #a0a0a0;
+        font-size: 1.6rem; /* Slightly larger icons */
+        margin: 0 12px;
+        transition: color 0.3s ease;
+    }
+    .social-icon:hover {
+        color: white;
+    }
+    .footer-nav {
+        margin-bottom: 25px;
+    }
+    .footer-nav a {
+        color: #a0a0a0;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+    .footer-nav a:hover {
+         color: white;
+    }
+    .copyright {
+        font-size: 0.85rem;
+        color: #777; /* Dimmer copyright */
+        margin-top: 20px;
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block; /* Show hamburger */
+        }
+        #mainNav {
+            display: none; /* Hide nav by default */
+            position: absolute;
+            top: 100%; /* Position below header */
+            left: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.95); /* Darker background for mobile menu */
+        }
+        #mainNav.active {
+            display: block; /* Show when active */
+        }
+        #mainNav ul {
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+        #mainNav li {
+            margin: 12px 0;
+            margin-left: 0;
+        }
+        .hero-title {
+            font-size: 2.5rem; /* Smaller title on mobile */
+        }
+        .hero-subtitle {
+            font-size: 1rem; /* Smaller subtitle */
+        }
+        .hero-info, .hero-counter {
+            font-size: 0.8rem; /* Smaller info/counter */
+            bottom: 20px;
+        }
+        .hero-info { left: 20px; }
+        .hero-counter { right: 20px; }
+    }
+
   </style>
 </head>
 <body>
@@ -73,10 +277,10 @@
   </header>
 
   <main>
-    <!-- Cinematic Hero Section -->
     <section id="hero" class="hero">
       <video class="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="HOMEPAGE 4k.mov" type="video/mp4">
+        <source src="HOMEPAGE 4k.mov" type="video/mp4"> 
+        Your browser does not support the video tag.
       </video>
       <div class="hero-content">
         <h1 class="hero-title">FOXIE FILMS</h1>
@@ -91,7 +295,6 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-logo">FOXIE FILMS</div>
@@ -99,19 +302,16 @@
         <a href="https://www.instagram.com/tfoxie_?igsh=ZnpldGVmb3hhYjIw&utm_source=qr" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://www.facebook.com/share/1AEbwbJqzN/?mibextid=wwXIfr" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
         <a href="https://www.tiktok.com/@tfoxie?_t=ZP-8vaskac0vWQ&_r=1" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
-        <a href="https://youtube.com/@tuanofoxie6536?si=jCyJGgDd6fLSCcIH" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://vimeo.com/user174177581" class="social-icon" target="_blank"><i class="fab fa-vimeo-v"></i></a>
+        <a href="https://youtube.com/@tuanofoxie6536?si=jCyJGgDd6fLSCcIH" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a> <a href="https://vimeo.com/user174177581" class="social-icon" target="_blank"><i class="fab fa-vimeo-v"></i></a>
       </div>
       <div class="footer-nav">
         <a href="index.html">Home</a>
         <a href="commercial.html">Commercial</a>
         <a href="narrative.html">Narrative</a>
         <a href="contact.html">Contact</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
+        <a href="#">Privacy</a> <a href="#">Terms</a> </div>
       <div class="copyright">
-        &copy; 2025 Foxie Films. All rights reserved.
+        © 2025 Foxie Films. All rights reserved.
       </div>
     </div>
   </footer>
@@ -125,7 +325,9 @@
     // Check for header background change
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
-      if (window.scrollY > 100) {
+      // Use pageYOffset for broader compatibility
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
+      if (scrollTop > 50) { // Adjust scroll trigger point if needed
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
