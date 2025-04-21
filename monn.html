@@ -58,14 +58,67 @@
     
     .hero-content {
       font-family: 'Courier Prime', monospace;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+      width: 80%;
+      max-width: 800px;
     }
     
     .hero-title {
       font-family: 'Courier Prime', monospace;
+      font-size: 4rem;
+      color: white;
+      letter-spacing: 5px;
+      height: 4.5rem;
+      position: relative;
     }
     
-    .hero-subtitle {
-      font-family: 'Courier Prime', monospace;
+    /* Text reveal animation */
+    .reveal-text {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .reveal-text span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100%);
+      animation: revealLetter 0.5s cubic-bezier(0.5, 0, 0.1, 1) forwards;
+    }
+
+    @keyframes revealLetter {
+      0% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 50px;
+      background-color: white;
+      margin-left: 8px;
+      animation: blink 1s infinite;
+      position: absolute;
+    }
+    
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
     }
     
     .footer-logo {
@@ -86,6 +139,18 @@
     
     .logo {
       font-family: 'Courier Prime', monospace;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+        height: 3rem;
+      }
+      
+      .cursor {
+        height: 35px;
+      }
     }
   </style>
 </head>
@@ -117,8 +182,7 @@
         <source src="HOMEPAGE 4k.mov" type="video/mp4">
       </video>
       <div class="hero-content">
-        <h1 class="hero-title">FOXIE FILMS</h1>
-        <p class="hero-subtitle">Crafting powerful visual narratives that resonate with audiences and transcend boundaries</p>
+        <h1 class="hero-title" id="revealTitle"></h1>
       </div>
       <div class="hero-info">
         <span>Directed by Foxie</span>
@@ -168,6 +232,48 @@
       } else {
         header.classList.remove('scrolled');
       }
+    });
+    
+    // Text reveal animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const titleElement = document.getElementById('revealTitle');
+      const text = "FOXIE FILMS";
+      
+      // Create a wrapper for the revealed text
+      const wrapper = document.createElement('div');
+      wrapper.className = 'reveal-text';
+      titleElement.appendChild(wrapper);
+      
+      // Add typing cursor
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      titleElement.appendChild(cursor);
+      
+      // Reveal each letter one by one
+      let currentPosition = 0;
+      
+      function revealNextLetter() {
+        if (currentPosition < text.length) {
+          const charSpan = document.createElement('span');
+          charSpan.textContent = text[currentPosition];
+          charSpan.style.animationDelay = `${currentPosition * 0.15}s`;
+          wrapper.appendChild(charSpan);
+          
+          // Move cursor after the last revealed letter
+          cursor.style.left = `${(currentPosition + 1) * (30 + 5)}px`; // Adjust based on letter width and spacing
+          
+          currentPosition++;
+          setTimeout(revealNextLetter, 200); // Time between each letter appearing
+        } else {
+          // Hide cursor after all letters are revealed
+          setTimeout(() => {
+            cursor.style.display = 'none';
+          }, 1000);
+        }
+      }
+      
+      // Start the animation after a short delay
+      setTimeout(revealNextLetter, 1000);
     });
   </script>
 </body>
