@@ -80,8 +80,8 @@
       position: relative;
     }
     
-    /* Text reveal animation */
-    .reveal-text {
+/* Text reveal animation */
+.reveal-text {
       display: inline-block;
       position: relative;
       overflow: hidden;
@@ -182,25 +182,6 @@
       .cursor {
         height: 1.75rem;
       }
-      
-      /* Improved mobile menu */
-      #mainNav {
-        z-index: 1000;
-      }
-      
-      #mainNav.active {
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-      }
-      
-      #mainNav ul li {
-        width: 100%;
-        text-align: center;
-      }
-      
-      .footer-social {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
     }
     
     @media (max-width: 480px) {
@@ -224,13 +205,12 @@
         right: 15px;
         font-size: 14px;
       }
-      
-      .footer-nav {
-        gap: 5px;
-      }
-      
-      .footer-nav a {
-        padding: 10px 5px;
+    }
+    
+    /* Ensure menu toggle only appears on mobile */
+    @media (min-width: 769px) {
+      #menuToggle {
+        display: none !important;
       }
     }
   </style>
@@ -246,6 +226,7 @@
         <i class="fas fa-bars"></i>
       </button>
       <nav id="mainNav">
+        <div class="mobile-menu-title">FOXIE FILMS</div>
         <ul>
           <li class="active"><a href="index.html">Home</a></li>
           <li><a href="commercial.html">Commercial</a></li>
@@ -304,6 +285,7 @@
     document.getElementById('menuToggle').addEventListener('click', () => {
       document.getElementById('mainNav').classList.toggle('active');
       document.body.classList.toggle('menu-open');
+      document.getElementById('menuToggle').classList.toggle('active');
     });
     
     // Check for header background change
@@ -381,7 +363,23 @@
       link.addEventListener('click', () => {
         document.getElementById('mainNav').classList.remove('active');
         document.body.classList.remove('menu-open');
+        document.getElementById('menuToggle').classList.remove('active');
       });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (event) => {
+      const nav = document.getElementById('mainNav');
+      const menuToggle = document.getElementById('menuToggle');
+      
+      if (nav.classList.contains('active') && 
+          !nav.contains(event.target) && 
+          event.target !== menuToggle && 
+          !menuToggle.contains(event.target)) {
+        nav.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        menuToggle.classList.remove('active');
+      }
     });
     
     // Add touch event listeners for better mobile experience
