@@ -18,6 +18,79 @@
       overflow-x: hidden;
     }
     
+    /* Logo size adjustments */
+    .logo {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.4rem; /* Increased font size */
+      font-weight: 600; /* Made it a bit bolder */
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-image {
+      width: auto;
+      height: 40px; /* Increased from default size */
+      margin-right: 10px;
+    }
+    
+    /* Adjust header to accommodate larger logo while minimizing height increase */
+    .header-container {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px; /* Slightly increased padding */
+    }
+    
+    /* Improved mobile menu styles */
+    #mainNav {
+      transition: all 0.3s ease;
+    }
+    
+    #mainNav.active {
+      backdrop-filter: blur(10px); /* Add blur effect to background */
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    }
+    
+    #mainNav ul {
+      padding-top: 10px; /* Move tabs up by reducing top padding */
+    }
+    
+    #mainNav ul li a {
+      font-family: 'Courier Prime', monospace;
+      display: block;
+      padding: 8px 0; /* Reduced padding to move items closer */
+      transition: color 0.3s ease;
+    }
+    
+    #mainNav ul li a:hover {
+      color: #D4AF37 !important; /* Gold color on hover */
+    }
+    
+    /* Position the mobile menu to align with Foxie Films logo */
+    @media (max-width: 768px) {
+      #mainNav {
+        position: fixed;
+        top: 60px; /* Align with the header */
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        padding: 0 20px; /* Align padding with the header */
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+      }
+      
+      #mainNav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      #mainNav ul {
+        margin-top: 0; /* Remove default margin */
+      }
+    }
+    
     /* Additional styles to position elements and improve video quality */
     .hero-video {
       position: absolute;
@@ -105,6 +178,20 @@
       }
     }
     
+    /* Fade out animation for the title */
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+    
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
     .cursor {
       display: inline-block;
       width: 3px;
@@ -134,16 +221,6 @@
     }
     
     .copyright {
-      font-family: 'Courier Prime', monospace;
-    }
-    
-    #mainNav ul li a {
-      font-family: 'Courier Prime', monospace;
-      display: block;
-      padding: 12px 0;
-    }
-    
-    .logo {
       font-family: 'Courier Prime', monospace;
     }
     
@@ -182,6 +259,14 @@
       .cursor {
         height: 1.75rem;
       }
+      
+      .logo {
+        font-size: 1.2rem; /* Slightly smaller on mobile */
+      }
+      
+      .logo-image {
+        height: 35px; /* Slightly smaller on mobile */
+      }
     }
     
     @media (max-width: 480px) {
@@ -205,6 +290,14 @@
         right: 15px;
         font-size: 14px;
       }
+      
+      .logo {
+        font-size: 1.1rem; /* Even smaller on small mobile devices */
+      }
+      
+      .logo-image {
+        height: 30px; /* Even smaller on small mobile devices */
+      }
     }
     
     /* Ensure menu toggle only appears on mobile */
@@ -226,7 +319,6 @@
         <i class="fas fa-bars"></i>
       </button>
       <nav id="mainNav">
-        <div class="mobile-menu-title">FOXIE FILMS</div>
         <ul>
           <li class="active"><a href="index.html">Home</a></li>
           <li><a href="commercial.html">Commercial</a></li>
@@ -338,6 +430,11 @@
           setTimeout(() => {
             cursor.style.display = 'none';
           }, 1000);
+          
+          // Fade out the title after showing for a while
+          setTimeout(() => {
+            wrapper.classList.add('fade-out');
+          }, 3000); // Wait 3 seconds before fading out
         }
       }
       
