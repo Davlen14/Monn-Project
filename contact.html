@@ -14,10 +14,11 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="monn.css">
+  <!-- Fix: Make sure the path to your CSS file is correct and the file exists -->
+  <link rel="stylesheet" href="/monn.css">
 
   <style>
-    /* --- Styles specific to Contact Page Hero -- */
+    /* --- Styles specific to Contact Page Hero --- */
 
     body {
         scroll-behavior: smooth;
@@ -65,6 +66,8 @@
     
     #mainNav ul {
       padding-top: 10px;
+      list-style: none; /* Fix: Add missing list-style property */
+      margin: 0; /* Fix: Add missing margin */
     }
     
     #mainNav ul li a {
@@ -72,6 +75,8 @@
       display: block;
       padding: 8px 0;
       transition: color 0.3s ease;
+      text-decoration: none; /* Fix: Add missing text-decoration */
+      color: white; /* Fix: Add missing color */
     }
     
     #mainNav ul li a:hover {
@@ -111,6 +116,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background: none; /* Fix: Add background */
+      border: none; /* Fix: Add border style */
+      color: white; /* Fix: Add color */
+      cursor: pointer; /* Fix: Add cursor */
     }
     
     .social-icon {
@@ -119,6 +128,8 @@
       justify-content: center;
       width: 44px;
       height: 44px;
+      color: white; /* Fix: Add missing color */
+      text-decoration: none; /* Fix: Add missing text-decoration */
     }
 
     #hero {
@@ -130,7 +141,8 @@
       box-sizing: border-box;
       overflow: hidden;
 
-      background-image: url('ABOUTMONN.png');
+      /* Fix: Use a relative path with slash prefix or full URL */
+      background-image: url('/ABOUTMONN.png');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -305,6 +317,53 @@
       #menuToggle {
         display: none !important;
       }
+    }
+
+    /* Footer styles - Add missing styles */
+    footer {
+      background-color: #000;
+      color: white;
+      padding: 30px 0;
+      font-family: 'Courier Prime', monospace;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-nav a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    .copyright {
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.7;
     }
 
     /* Improved Responsive Adjustments */
@@ -492,7 +551,8 @@
   <header id="header">
     <div class="header-container container">
       <a href="index.html" class="logo">
-        <img src="FOXIElogobw.PNG" alt="Foxie Films Logo" class="logo-image">
+        <!-- Fix: Updated image path with leading slash -->
+        <img src="/FOXIElogobw.PNG" alt="Foxie Films Logo" class="logo-image">
         Foxie Films
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
@@ -522,7 +582,9 @@
       <div class="contact-wrapper">
         <div class="contact-box">
           <h3>Get In Touch</h3>
-          <form action="#" method="POST">
+          <!-- Fix: Add a server-side endpoint or Netlify/Vercel form handling -->
+          <form name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -550,11 +612,11 @@
     <div class="container">
       <div class="footer-logo">FOXIE FILMS</div>
       <div class="footer-social">
-         <a href="https://www.instagram.com/tfoxie_?igsh=ZnpldGVmb3hhYjIw&utm_source=qr" class="social-icon" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-         <a href="https://www.facebook.com/share/1AEbwbJqzN/?mibextid=wwXIfr" class="social-icon" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-         <a href="https://www.tiktok.com/@tfoxie?_t=ZP-8vaskac0vWQ&_r=1" class="social-icon" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-         <a href="https://youtube.com/@tuanofoxie6536?si=jCyJGgDd6fLSCcIH" class="social-icon" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-         <a href="https://vimeo.com/user174177581" class="social-icon" target="_blank" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+         <a href="https://www.instagram.com/tfoxie_?igsh=ZnpldGVmb3hhYjIw&utm_source=qr" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+         <a href="https://www.facebook.com/share/1AEbwbJqzN/?mibextid=wwXIfr" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+         <a href="https://www.tiktok.com/@tfoxie?_t=ZP-8vaskac0vWQ&_r=1" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+         <a href="https://youtube.com/@tuanofoxie6536?si=jCyJGgDd6fLSCcIH" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+         <a href="https://vimeo.com/user174177581" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
       </div>
       <div class="footer-nav">
         <a href="index.html">Home</a>
