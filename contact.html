@@ -152,8 +152,8 @@
       box-sizing: border-box;
       overflow: hidden;
 
-      /* Fix: Use a relative path with slash prefix or full URL */
-      background-image: url('ABOUTMONN.png');
+      /* Fix: Use a relative path with leading slash for production */
+      background-image: url('/ABOUTMONN.png');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -566,8 +566,8 @@
   <header id="header">
     <div class="header-container container">
       <a href="index.html" class="logo">
-        <!-- Fix: Updated image path with leading slash -->
-        <img src="FOXIElogobw.PNG" alt="Foxie Films Logo" class="logo-image">
+        <!-- Fix: Updated image path with leading slash for production -->
+        <img src="/FOXIElogobw.PNG" alt="Foxie Films Logo" class="logo-image">
         FOXIE FILMS
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
