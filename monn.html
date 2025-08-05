@@ -358,7 +358,7 @@
         pointer-events: none;
       }
       
-      /* Close button for shrunk video */
+      /* Close button for shrunk video - COMPLETELY HIDDEN BY DEFAULT */
       .video-close-btn {
         position: absolute;
         top: 8px; /* Closer to edge */
@@ -371,12 +371,15 @@
         color: white;
         font-size: 14px;
         cursor: pointer;
-        display: none;
+        display: none !important; /* Force hide by default */
         align-items: center;
         justify-content: center;
         z-index: 70; /* Higher z-index */
         transition: all 0.3s ease;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for visibility */
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
       }
       
       .video-close-btn:hover {
@@ -385,7 +388,10 @@
       }
       
       .hero.shrunk .video-close-btn {
-        display: flex;
+        display: flex !important;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
       }
 
       
@@ -427,6 +433,14 @@
       .hero.shrunk .hero-counter {
         opacity: 1 !important;
         pointer-events: auto !important;
+      }
+      
+      /* FORCE HIDE close button on desktop */
+      .video-close-btn {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
       }
       
       body.video-shrunk {
