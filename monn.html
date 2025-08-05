@@ -16,6 +16,8 @@
     body {
       font-family: 'Courier Prime', monospace;
       overflow-x: hidden;
+      margin: 0; /* Remove default body margins */
+      padding: 0; /* Remove default body padding */
     }
     
     /* Logo size adjustments */
@@ -306,6 +308,131 @@
         display: none !important;
       }
     }
+    
+    /* Mobile video shrink animation */
+    @media (max-width: 768px) {
+      .hero {
+        transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        margin: 0; /* Remove any margins */
+        padding: 0; /* Remove any padding */
+      }
+      
+      .hero.shrunk {
+        position: fixed;
+        top: 60px; /* Right below header, no gap */
+        left: 0;
+        right: 0; /* Ensure it spans full width */
+        transform: none;
+        width: 100vw; /* Full viewport width */
+        height: 250px;
+        z-index: 50;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: none; /* Remove all shadows */
+        backdrop-filter: none; /* Remove blur effects */
+        -webkit-backdrop-filter: none;
+        margin: 0; /* Remove any margins */
+        padding: 0; /* Remove any padding */
+      }
+      
+      .hero.shrunk .hero-video {
+        object-fit: cover; /* Fill entire container edge-to-edge */
+        background: #000;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      
+      .hero.shrunk .hero-content {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .hero.shrunk .hero-info,
+      .hero.shrunk .hero-counter {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      /* Close button for shrunk video */
+      .video-close-btn {
+        position: absolute;
+        top: 8px; /* Closer to edge */
+        right: 8px; /* Closer to edge */
+        width: 32px;
+        height: 32px;
+        background: rgba(0, 0, 0, 0.8); /* Slightly more opaque */
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 70; /* Higher z-index */
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for visibility */
+      }
+      
+      .video-close-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: scale(1.1);
+      }
+      
+      .hero.shrunk .video-close-btn {
+        display: flex;
+      }
+
+      
+      /* Add padding to body when video is shrunk to prevent content overlap */
+      body.video-shrunk {
+        padding-top: 310px; /* Adjusted for tighter fit */
+      }
+      
+      /* Smooth transition for body padding */
+      body {
+        transition: padding-top 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+      }
+      
+      /* Make sure footer is visible when video shrinks */
+      footer {
+        position: relative;
+        z-index: 1;
+        background: var(--primary-dark);
+      }
+    }
+    
+    /* Desktop - no shrinking behavior */
+    @media (min-width: 769px) {
+      .hero.shrunk {
+        position: relative !important;
+        width: 100% !important;
+        height: 100vh !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+      
+      .hero.shrunk .hero-video {
+        object-fit: cover !important;
+      }
+      
+      .hero.shrunk .hero-content,
+      .hero.shrunk .hero-info,
+      .hero.shrunk .hero-counter {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      
+      body.video-shrunk {
+        padding-top: 0 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -332,9 +459,16 @@
   <main>
     <!-- Cinematic Hero Section -->
     <section id="hero" class="hero">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" id="heroVideo">
+        <source src="./HOMEPAGE 4k.mov" type="video/quicktime">
+        <source src="./HOMEPAGE 4k.mov" type="video/mp4">
+        <source src="HOMEPAGE 4k.mov" type="video/quicktime">
         <source src="HOMEPAGE 4k.mov" type="video/mp4">
+        Your browser does not support the video tag or the video file cannot be loaded.
       </video>
+      <button class="video-close-btn" id="videoCloseBtn" aria-label="Close Video">
+        <i class="fas fa-times"></i>
+      </button>
       <div class="hero-content">
         <h1 class="hero-title" id="revealTitle"></h1>
       </div>
@@ -380,15 +514,73 @@
       document.getElementById('menuToggle').classList.toggle('active');
     });
     
-    // Check for header background change
-    window.addEventListener('scroll', () => {
+    // Video close button functionality
+    document.getElementById('videoCloseBtn').addEventListener('click', () => {
+      const hero = document.getElementById('hero');
+      const body = document.body;
+      
+      hero.classList.remove('shrunk');
+      body.classList.remove('video-shrunk');
+      
+      // Scroll back to top smoothly
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Check for header background change and mobile video shrinking
+    let ticking = false;
+    
+    function updateOnScroll() {
       const header = document.getElementById('header');
+      const hero = document.getElementById('hero');
+      const footer = document.querySelector('footer');
+      const body = document.body;
+      
+      // Header background change
       if (window.scrollY > 50) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
-    });
+      
+      // Mobile video shrinking logic
+      if (window.innerWidth <= 768) {
+        const footerRect = footer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        
+        // Check if footer is visible or user has scrolled past 25% of viewport
+        const isFooterVisible = footerRect.top < viewportHeight;
+        const hasScrolledEnough = scrollY > viewportHeight * 0.25; // 25% scroll trigger
+        
+        if (isFooterVisible || hasScrolledEnough) {
+          if (!hero.classList.contains('shrunk')) {
+            hero.classList.add('shrunk');
+            body.classList.add('video-shrunk');
+          }
+        } else if (scrollY < viewportHeight * 0.15) { // Hysteresis for smooth UX
+          hero.classList.remove('shrunk');
+          body.classList.remove('video-shrunk');
+        }
+      } else {
+        // Desktop - remove mobile classes
+        hero.classList.remove('shrunk');
+        body.classList.remove('video-shrunk');
+      }
+      
+      ticking = false;
+    }
+    
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateOnScroll);
+        ticking = true;
+      }
+    }
+    
+    window.addEventListener('scroll', requestTick, { passive: true });
     
     // Text reveal animation
     document.addEventListener('DOMContentLoaded', () => {
@@ -440,12 +632,45 @@
       
       // Start the animation after a short delay
       setTimeout(revealNextLetter, 1000);
+      
+      // Video debugging and error handling
+      const heroVideo = document.getElementById('heroVideo');
+      if (heroVideo) {
+        console.log('Video element found');
+        
+        heroVideo.addEventListener('loadstart', () => {
+          console.log('Video loading started');
+        });
+        
+        heroVideo.addEventListener('canplaythrough', () => {
+          console.log('Video can play through');
+        });
+        
+        heroVideo.addEventListener('error', (e) => {
+          console.error('Video error:', e);
+          console.log('Video error details:', heroVideo.error);
+        });
+        
+        heroVideo.addEventListener('loadeddata', () => {
+          console.log('Video data loaded');
+        });
+        
+        // Check if video sources exist
+        heroVideo.querySelectorAll('source').forEach((source, index) => {
+          console.log(`Source ${index + 1}:`, source.src);
+        });
+      } else {
+        console.error('Video element not found');
+      }
     });
     
-    // Fix vh units for mobile browsers
+    // Fix vh units for mobile browsers and handle video shrinking on resize
     function setTrueHeight() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
+      
+      // Trigger scroll event to recalculate video shrinking on resize
+      requestTick();
     }
     
     // Set on initial load
@@ -453,7 +678,9 @@
     
     // Update on resize and orientation change
     window.addEventListener('resize', setTrueHeight);
-    window.addEventListener('orientationchange', setTrueHeight);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(setTrueHeight, 100); // Small delay for orientation change
+    });
     
     // Close mobile menu when clicking a link
     document.querySelectorAll('#mainNav a').forEach(link => {

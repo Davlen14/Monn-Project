@@ -1,0 +1,29 @@
+# Enable MIME types for video files
+AddType video/quicktime .mov
+AddType video/mp4 .mp4
+AddType video/webm .webm
+
+# Enable compression for video files
+<IfModule mod_deflate.c>
+    # Don't compress videos (they're already compressed)
+    SetEnvIfNoCase Request_URI \
+        \.(?:gif|jpe?g|png|mov|mp4|webm)$ no-gzip dont-vary
+</IfModule>
+
+# Set proper headers for video files
+<IfModule mod_headers.c>
+    <FilesMatch "\.(mov|mp4|webm)$">
+        Header set Cache-Control "public, max-age=31536000"
+        Header set Accept-Ranges "bytes"
+    </FilesMatch>
+</IfModule>
+
+# Enable byte-range requests for video streaming
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Allow partial content requests for video files
+    RewriteCond %{REQUEST_METHOD} ^(GET|HEAD)$
+    RewriteCond %{HTTP:Range} bytes=
+    RewriteCond %{REQUEST_URI} \.(mov|mp4|webm)$ [NC]
+    RewriteRule .* - [E=no-gzip:1]
+</IfModule>
